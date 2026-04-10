@@ -1,0 +1,197 @@
+
+<style>
+.legend-swatch{width:28px;height:3px;border-radius:2px;display:inline-block;vertical-align:middle;margin-right:5px}
+.legend-dash{width:28px;height:0;border-top:2px dashed;display:inline-block;vertical-align:middle;margin-right:5px}
+.event-pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:3px 8px;border-radius:4px;cursor:default;margin:2px}
+.dk-pill{background:#E6F1FB;color:#0C447C;border:0.5px solid #B5D4F4}
+.it-pill{background:#FAECE7;color:#712B13;border:0.5px solid #F5C4B3}
+.shock-pill{background:#F1EFE8;color:#444441;border:0.5px solid #D3D1C7}
+</style>
+
+<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px;font-size:12px;color:var(--color-text-secondary)">
+  <span><span class="legend-swatch" style="background:#185FA5"></span>Denmark LP growth</span>
+  <span><span class="legend-dash" style="border-color:#993C1D"></span>Italy LP growth</span>
+  <span><span class="legend-swatch" style="background:#185FA5;opacity:0.18"></span>Period bands</span>
+  <span style="margin-left:8px">Events:</span>
+  <span class="event-pill dk-pill">DK policy</span>
+  <span class="event-pill it-pill">IT policy</span>
+  <span class="event-pill shock-pill">External shock</span>
+</div>
+
+<div style="position:relative;width:100%;height:420px">
+  <canvas id="lpChart" role="img" aria-label="Line chart of Denmark and Italy labour productivity growth in the ICT sector 1996 to 2019, with institutional events annotated">Denmark LP growth 1996-2019 vs Italy, with key policy events.</canvas>
+</div>
+
+<div id="eventLegend" style="margin-top:16px;display:flex;flex-wrap:wrap;gap:4px;font-size:11px"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const years = [1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019];
+const dkLP  = [8.269,10.500,-0.945,0.970,2.577,3.150,7.848,13.071,6.835,6.321,1.002,8.856,8.982,1.956,3.442,4.542,2.695,7.753,1.987,7.724,5.838,1.664,2.054,4.733];
+const itLP  = [6.715,1.099,0.763,4.861,2.653,7.487,4.403,0.634,3.075,1.447,-1.175,4.979,3.383,-0.194,3.299,1.055,-3.971,-0.103,2.155,-1.368,1.742,-1.052,-2.261,1.735];
+
+const events = [
+  {year:1998, label:'Flexjob scheme',      type:'dk', short:'DK Flexjob'},
+  {year:1997, label:'Biagi Law precursor', type:'it', short:'IT Biagi precursor'},
+  {year:2001, label:'eGovernment strategy',type:'dk', short:'DK eGov'},
+  {year:2001, label:'Dot-com bust',        type:'shock', short:'Dot-com bust'},
+  {year:2003, label:'Biagi Law',           type:'it', short:'IT Biagi Law'},
+  {year:2005, label:'Globalisation Council',type:'dk', short:'DK Glob. Council'},
+  {year:2006, label:'Welfare agreement',   type:'dk', short:'DK Welfare agr.'},
+  {year:2006, label:'Industria 2015',      type:'it', short:'IT Industria 2015'},
+  {year:2008, label:'Financial crisis',    type:'shock', short:'Financial crisis'},
+  {year:2009, label:'Tripartite agreement',type:'dk', short:'DK Tripartite'},
+  {year:2011, label:'Fornero Reform',      type:'it', short:'IT Fornero'},
+  {year:2012, label:'Austerity cuts',      type:'it', short:'IT Austerity'},
+  {year:2014, label:'Jobs Act',            type:'it', short:'IT Jobs Act'},
+  {year:2016, label:'Digital Growth Strategy',type:'dk', short:'DK Digital Strategy'},
+  {year:2016, label:'Piano Industria 4.0', type:'it', short:'IT Industria 4.0'},
+  {year:2017, label:'Disruption Council',  type:'dk', short:'DK Disruption Council'},
+];
+
+const typeColor = { dk:'#185FA5', it:'#993C1D', shock:'#888780' };
+const typeDash  = { dk:[], it:[6,4], shock:[2,2] };
+
+const periodBands = [
+  {from:1996, to:2003, color:'rgba(24,95,165,0.06)',  label:'Pre-boom'},
+  {from:2004, to:2008, color:'rgba(24,95,165,0.10)',  label:'Pre-crisis'},
+  {from:2009, to:2013, color:'rgba(193,60,29,0.08)',  label:'Crisis'},
+  {from:2014, to:2019, color:'rgba(24,95,165,0.06)',  label:'Recovery'},
+];
+
+const bandPlugin = {
+  id:'bandPlugin',
+  beforeDraw(chart){
+    const {ctx,chartArea,scales:{x,y}} = chart;
+    if(!chartArea) return;
+    ctx.save();
+    periodBands.forEach(b=>{
+      const x0 = x.getPixelForValue(b.from - 0.5);
+      const x1 = x.getPixelForValue(b.to + 0.5);
+      ctx.fillStyle = b.color;
+      ctx.fillRect(x0, chartArea.top, x1-x0, chartArea.height);
+      ctx.fillStyle = 'rgba(80,80,80,0.45)';
+      ctx.font = '500 10px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(b.label, (x0+x1)/2, chartArea.top + 12);
+    });
+    ctx.restore();
+  }
+};
+
+const eventLinePlugin = {
+  id:'eventLinePlugin',
+  afterDraw(chart){
+    const {ctx,chartArea,scales:{x,y}} = chart;
+    if(!chartArea) return;
+    ctx.save();
+    const used = {};
+    events.forEach(ev=>{
+      const px = x.getPixelForValue(ev.year);
+      const col = typeColor[ev.type];
+      ctx.setLineDash([3,3]);
+      ctx.strokeStyle = col;
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = 0.55;
+      ctx.beginPath();
+      ctx.moveTo(px, chartArea.top + 18);
+      ctx.lineTo(px, chartArea.bottom);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.globalAlpha = 1;
+      if(!used[ev.year]){
+        ctx.fillStyle = col;
+        ctx.font = '500 9px sans-serif';
+        ctx.textAlign = 'center';
+        const num = events.filter(e=>e.year===ev.year).length;
+        ctx.fillText(num > 1 ? num+' events' : '', px, chartArea.top + 30);
+      }
+      used[ev.year] = true;
+    });
+    ctx.restore();
+  }
+};
+
+const ctx = document.getElementById('lpChart').getContext('2d');
+new Chart(ctx,{
+  type:'line',
+  plugins:[bandPlugin, eventLinePlugin],
+  data:{
+    labels: years,
+    datasets:[
+      {
+        label:'Denmark',
+        data: dkLP,
+        borderColor:'#185FA5',
+        borderWidth:2.5,
+        pointBackgroundColor:'#185FA5',
+        pointRadius:3,
+        pointHoverRadius:5,
+        tension:0.3,
+        fill:false,
+        borderDash:[],
+      },
+      {
+        label:'Italy',
+        data: itLP,
+        borderColor:'#993C1D',
+        borderWidth:2,
+        pointBackgroundColor:'#993C1D',
+        pointStyle:'triangle',
+        pointRadius:4,
+        pointHoverRadius:6,
+        tension:0.3,
+        fill:false,
+        borderDash:[6,4],
+      }
+    ]
+  },
+  options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    interaction:{mode:'index', intersect:false},
+    plugins:{
+      legend:{display:false},
+      tooltip:{
+        callbacks:{
+          title: ctx => 'Year: ' + ctx[0].label,
+          label: ctx => ' ' + ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(1) + ' pts',
+          afterBody: (ctx) => {
+            const yr = parseInt(ctx[0].label);
+            const evs = events.filter(e=>e.year===yr);
+            if(!evs.length) return [];
+            return ['', ...evs.map(e=>'  '+e.label)];
+          }
+        },
+        backgroundColor:'rgba(255,255,255,0.97)',
+        titleColor:'#2C2C2A',
+        bodyColor:'#5F5E5A',
+        borderColor:'rgba(0,0,0,0.1)',
+        borderWidth:1,
+        padding:10,
+        cornerRadius:6,
+      }
+    },
+    scales:{
+      x:{
+        grid:{color:'rgba(136,135,128,0.12)'},
+        ticks:{color:'#5F5E5A', font:{size:11}, maxRotation:0, autoSkip:false,
+          callback:(v,i)=> (years[i]%2===0 ? years[i] : '')
+        }
+      },
+      y:{
+        grid:{color:'rgba(136,135,128,0.12)'},
+        ticks:{color:'#5F5E5A', font:{size:11}, callback: v=>v.toFixed(0)},
+        title:{display:true, text:'LP growth (index pts)', color:'#888780', font:{size:11}}
+      }
+    }
+  }
+});
+
+const leg = document.getElementById('eventLegend');
+const sorted = [...events].sort((a,b)=>a.year-b.year);
+sorted.forEach(ev=>{
+  const cls = ev.type==='dk'?'dk-pill':ev.type==='it'?'it-pill':'shock-pill';
+  leg.innerHTML += `<span class="event-pill ${cls}">${ev.year} — ${ev.label}</span>`;
+});
+</script>
