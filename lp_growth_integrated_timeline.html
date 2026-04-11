@@ -1,0 +1,210 @@
+
+<h2 class="sr-only">Labour productivity growth in the ICT sector for Denmark and Italy 1996–2019, with key institutional events annotated on the chart</h2>
+
+<div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-bottom:12px;font-size:12px;color:var(--color-text-secondary)">
+  <span style="display:flex;align-items:center;gap:6px">
+    <span style="width:28px;height:3px;background:#185FA5;border-radius:2px;display:inline-block"></span>Denmark
+  </span>
+  <span style="display:flex;align-items:center;gap:6px">
+    <span style="width:28px;height:0;border-top:2px dashed #993C1D;display:inline-block"></span>Italy
+  </span>
+  <span style="display:flex;align-items:center;gap:6px">
+    <span style="width:12px;height:12px;background:#E6F1FB;border:1px solid #185FA5;border-radius:2px;display:inline-block"></span>DK policy
+  </span>
+  <span style="display:flex;align-items:center;gap:6px">
+    <span style="width:12px;height:12px;background:#FAECE7;border:1px solid #993C1D;border-radius:2px;display:inline-block"></span>IT policy
+  </span>
+  <span style="display:flex;align-items:center;gap:6px">
+    <span style="width:12px;height:12px;background:#F1EFE8;border:1px dashed #888780;border-radius:2px;display:inline-block"></span>External shock
+  </span>
+</div>
+
+<div style="position:relative;width:100%;height:380px">
+  <canvas id="lpChart" role="img" aria-label="Line chart of Denmark and Italy ICT sector labour productivity growth 1996-2019 with policy events">Denmark consistently outperforms Italy in ICT sector LP growth, with key events annotated.</canvas>
+</div>
+
+<div id="tooltip" style="display:none;position:fixed;background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--color-text-primary);pointer-events:none;z-index:999;max-width:220px;box-shadow:0 2px 8px rgba(0,0,0,0.08)"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const years = [1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019];
+const dkLP = [8.269,10.500,-0.945,0.970,2.577,3.150,7.848,13.071,6.835,6.321,1.002,8.856,8.982,1.956,3.442,4.542,2.695,7.753,1.987,7.724,5.838,1.664,2.054,4.733];
+const itLP = [6.715,1.099,0.763,4.861,2.653,7.487,4.403,0.634,3.075,1.447,-1.175,4.979,3.383,-0.194,3.299,1.055,-3.971,-0.103,2.155,-1.368,1.742,-1.052,-2.261,1.735];
+
+const events = [
+  {year:1997, label:'Treu Package', sub:'New flexible contracts', type:'it'},
+  {year:1998, label:'Flexjob scheme', sub:'Subsidised jobs, reduced capacity workers', type:'dk'},
+  {year:2001, label:'eGovernment strategy', sub:'National digital infrastructure push', type:'dk'},
+  {year:2001, label:'Dot-com bust', sub:'ICT sector investment contraction', type:'shock'},
+  {year:2003, label:'Biagi Law', sub:'New work contracts', type:'it'},
+  {year:2005, label:'Globalisation Council', sub:'Skills & R&D investment strategy', type:'dk'},
+  {year:2006, label:'Welfare agreement', sub:'Extended active labour market policies', type:'dk'},
+  {year:2006, label:'Industria 2015 plan', sub:'ICT & innovation — poorly executed', type:'it'},
+  {year:2008, label:'Global financial crisis', sub:'External macroeconomic shock', type:'shock'},
+  {year:2009, label:'Flexicurity cushions crisis', sub:'Automatic stabilisers absorb shock', type:'dk'},
+  {year:2011, label:'Fornero Reform', sub:'Pension & labour reform under austerity', type:'it'},
+  {year:2012, label:'Spending cuts', sub:'R&D & ICT public investment frozen', type:'it'},
+  {year:2014, label:'Jobs Act', sub:'Reduced dismissal protection', type:'it'},
+  {year:2016, label:'Piano Industria 4.0', sub:'Tax incentives for digital investment', type:'it'},
+  {year:2017, label:'Disruption Council', sub:'Tripartite body on digital future of work', type:'dk'},
+  {year:2018, label:'Digital Growth Strategy', sub:'AI, data & platform economy roadmap', type:'dk'},
+];
+
+const periods = [
+  {from:1996,to:2003,label:'Pre-boom',color:'rgba(24,95,165,0.05)'},
+  {from:2004,to:2008,label:'Pre-crisis',color:'rgba(24,95,165,0.09)'},
+  {from:2009,to:2013,label:'Crisis',color:'rgba(192,57,43,0.07)'},
+  {from:2014,to:2019,label:'Recovery',color:'rgba(24,95,165,0.05)'},
+];
+
+const typeStyle = {
+  dk:    {line:'#185FA5', fill:'#E6F1FB', border:'#185FA5', textColor:'#0C447C'},
+  it:    {line:'#993C1D', fill:'#FAECE7', border:'#993C1D', textColor:'#712B13'},
+  shock: {line:'#888780', fill:'#F1EFE8', border:'#888780', textColor:'#444441', dash:true},
+};
+
+const bandPlugin = {
+  id:'bands',
+  beforeDraw(chart) {
+    const {ctx, chartArea:{left,right,top,bottom}, scales:{x}} = chart;
+    ctx.save();
+    periods.forEach(p => {
+      const x0 = x.getPixelForValue(p.from - 0.5);
+      const x1 = x.getPixelForValue(p.to + 0.5);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(x0, top, x1 - x0, bottom - top);
+      ctx.fillStyle = 'rgba(80,80,80,0.38)';
+      ctx.font = '500 10px -apple-system,sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(p.label, (x0+x1)/2, top + 13);
+    });
+    ctx.restore();
+  }
+};
+
+const eventsPlugin = {
+  id:'eventsPlugin',
+  afterDraw(chart) {
+    const {ctx, chartArea:{top,bottom}, scales:{x,y}} = chart;
+    ctx.save();
+
+    const usedX = {};
+    events.forEach(ev => {
+      const px = x.getPixelForValue(ev.year);
+      const s = typeStyle[ev.type];
+      ctx.globalAlpha = 0.5;
+      ctx.setLineDash(s.dash ? [3,3] : [2,3]);
+      ctx.strokeStyle = s.line;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(px, top + 20);
+      ctx.lineTo(px, bottom);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.globalAlpha = 1;
+
+      if (!usedX[ev.year]) {
+        const count = events.filter(e => e.year === ev.year).length;
+        const multi = count > 1;
+        const evAtYear = events.filter(e => e.year === ev.year);
+
+        evAtYear.forEach((e, idx) => {
+          const dotY = top + 26 + idx * 11;
+          const es = typeStyle[e.type];
+          ctx.beginPath();
+          ctx.arc(px, dotY, 3.5, 0, Math.PI*2);
+          ctx.fillStyle = es.fill;
+          ctx.fill();
+          ctx.strokeStyle = es.border;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        });
+      }
+      usedX[ev.year] = true;
+    });
+
+    ctx.restore();
+  }
+};
+
+const canvas = document.getElementById('lpChart');
+const chart = new Chart(canvas, {
+  type:'line',
+  plugins:[bandPlugin, eventsPlugin],
+  data:{
+    labels: years,
+    datasets:[
+      {
+        label:'Denmark', data:dkLP,
+        borderColor:'#185FA5', borderWidth:2.5,
+        pointBackgroundColor:'#185FA5', pointRadius:3.5, pointHoverRadius:6,
+        tension:0.3, fill:false, borderDash:[],
+      },
+      {
+        label:'Italy', data:itLP,
+        borderColor:'#993C1D', borderWidth:2,
+        pointBackgroundColor:'#993C1D', pointStyle:'triangle', pointRadius:4, pointHoverRadius:6,
+        tension:0.3, fill:false, borderDash:[6,4],
+      }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    interaction:{mode:'index', intersect:false},
+    plugins:{
+      legend:{display:false},
+      tooltip:{
+        enabled:false,
+        external(ctx) {
+          const tip = document.getElementById('tooltip');
+          if(ctx.tooltip.opacity === 0){tip.style.display='none';return;}
+          const yr = parseInt(ctx.tooltip.title[0]);
+          const evs = events.filter(e=>e.year===yr);
+          const dk = dkLP[years.indexOf(yr)];
+          const it = itLP[years.indexOf(yr)];
+          let html = `<div style="font-weight:500;margin-bottom:6px;color:var(--color-text-primary)">${yr}</div>`;
+          html += `<div style="display:flex;justify-content:space-between;gap:16px;margin-bottom:4px">
+            <span style="color:#185FA5">DK: ${dk.toFixed(1)} pp</span>
+            <span style="color:#993C1D">IT: ${it.toFixed(1)} pp</span>
+          </div>`;
+          if(evs.length){
+            html += `<div style="border-top:0.5px solid var(--color-border-tertiary);margin-top:6px;padding-top:6px">`;
+            evs.forEach(e=>{
+              const s = typeStyle[e.type];
+              html += `<div style="display:flex;align-items:flex-start;gap:6px;margin-bottom:4px">
+                <span style="flex-shrink:0;width:8px;height:8px;border-radius:50%;background:${s.fill};border:1px solid ${s.border};margin-top:3px"></span>
+                <div><div style="font-weight:500;color:${s.textColor};font-size:11px">${e.label}</div>
+                <div style="color:var(--color-text-secondary);font-size:10px">${e.sub}</div></div>
+              </div>`;
+            });
+            html += '</div>';
+          }
+          tip.innerHTML = html;
+          tip.style.display = 'block';
+          const pos = ctx.chart.canvas.getBoundingClientRect();
+          let left = pos.left + ctx.tooltip.caretX + 12;
+          if(left + 240 > window.innerWidth) left = pos.left + ctx.tooltip.caretX - 234;
+          tip.style.left = left + 'px';
+          tip.style.top = (pos.top + ctx.tooltip.caretY - 20) + 'px';
+        }
+      }
+    },
+    scales:{
+      x:{
+        grid:{color:'rgba(136,135,128,0.1)'},
+        ticks:{color:'#888780', font:{size:11}, maxRotation:0,
+          callback:(v,i) => years[i]%2===0 ? years[i] : ''}
+      },
+      y:{
+        grid:{color:'rgba(136,135,128,0.1)'},
+        ticks:{color:'#888780', font:{size:11}, callback:v=>v.toFixed(0)},
+        title:{display:true, text:'LP growth (p.p.)', color:'#888780', font:{size:11}}
+      }
+    }
+  }
+});
+
+canvas.addEventListener('mouseleave', () => {
+  document.getElementById('tooltip').style.display = 'none';
+});
+</script>

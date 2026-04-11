@@ -1,0 +1,199 @@
+<svg width="100%" viewBox="0 0 720 980" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Denmark vs Italy: Institutional and policy timeline 1996–2019</title>
+  <desc>A vertical timeline showing key laws, reforms, and external shocks affecting productivity in Denmark and Italy across four sub-periods from 1996 to 2019.</desc>
+
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    </style>
+  </defs>
+
+  <!-- ── Period band backgrounds ── -->
+  <!-- Pre-boom: 58–238 -->
+  <rect x="40" y="58" width="640" height="182" rx="6" fill="#F5F4ED" opacity="0.7"/>
+  <!-- Pre-crisis: 254–424 -->
+  <rect x="40" y="252" width="640" height="174" rx="6" fill="#F5F4ED" opacity="0.7"/>
+  <!-- Crisis: 442–612 -->
+  <rect x="40" y="440" width="640" height="174" rx="6" fill="#F5F4ED" opacity="0.7"/>
+  <!-- Recovery: 630–940 -->
+  <rect x="40" y="628" width="640" height="316" rx="6" fill="#F5F4ED" opacity="0.7"/>
+
+  <!-- ── Period labels ── -->
+  <text x="56" y="78" font-size="13" font-weight="600" fill="#141413">1996–2003</text>
+  <text x="56" y="94" font-size="11" fill="#1B4F8A">Pre-boom</text>
+
+  <text x="56" y="272" font-size="13" font-weight="600" fill="#141413">2004–2008</text>
+  <text x="56" y="288" font-size="11" fill="#1B4F8A">Pre-crisis</text>
+
+  <text x="56" y="460" font-size="13" font-weight="600" fill="#141413">2009–2013</text>
+  <text x="56" y="476" font-size="11" fill="#C0392B">Crisis</text>
+
+  <text x="56" y="648" font-size="13" font-weight="600" fill="#141413">2014–2019</text>
+  <text x="56" y="664" font-size="11" fill="#1B4F8A">Recovery</text>
+
+  <!-- ── Central spine ── -->
+  <line x1="360" y1="60" x2="360" y2="930" stroke="rgba(31,30,29,0.25)" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- ── Column headers ── -->
+  <rect x="60" y="28" width="240" height="26" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="180" y="41" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#0C447C">Denmark</text>
+
+  <rect x="420" y="28" width="240" height="26" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="540" y="41" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#712B13">Italy</text>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PRE-BOOM  1996–2003
+  ═══════════════════════════════════════════════════ -->
+
+  <!-- DK: Flexjob scheme 1998 -->
+  <rect x="68" y="108" width="272" height="48" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="204" y="127" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#0C447C">Flexjob scheme (1998)</text>
+  <text x="204" y="145" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#185FA5">Subsidised jobs for reduced capacity workers</text>
+  <line x1="340" y1="132" x2="358" y2="132" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+  <circle cx="360" cy="132" r="3.5" fill="#1B4F8A"/>
+
+  <!-- IT: Treu Package 1997 -->
+  <rect x="380" y="108" width="272" height="48" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="516" y="127" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#712B13">Treu Package (1997)</text>
+  <text x="516" y="145" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#993C1D">New flexible contracts; precursor to labour reform</text>
+  <circle cx="360" cy="132" r="3.5" fill="#C0392B"/>
+  <line x1="362" y1="132" x2="378" y2="132" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+
+  <!-- DK: eGovernment 2001 -->
+  <rect x="68" y="174" width="272" height="48" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="204" y="193" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#0C447C">eGovernment strategy (2001)</text>
+  <text x="204" y="211" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#185FA5">National digital infrastructure push</text>
+  <line x1="340" y1="198" x2="358" y2="198" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+  <circle cx="360" cy="198" r="3.5" fill="#1B4F8A"/>
+
+  <!-- IT: Dot-com bust 2001 -->
+  <rect x="380" y="174" width="272" height="48" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5" stroke-dasharray="4 2"/>
+  <text x="516" y="193" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#444441">Dot-com bust (2001)</text>
+  <text x="516" y="211" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#5F5E5A">ICT sector investment contraction</text>
+  <circle cx="360" cy="198" r="3.5" fill="#888780"/>
+  <line x1="362" y1="198" x2="378" y2="198" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PRE-CRISIS  2004–2008
+  ═══════════════════════════════════════════════════ -->
+
+  <!-- DK: Globalisation Council 2005 -->
+  <rect x="68" y="300" width="272" height="48" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="204" y="319" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#0C447C">Globalisation Council (2005)</text>
+  <text x="204" y="337" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#185FA5">Skills &amp; R&amp;D investment strategy</text>
+  <line x1="340" y1="324" x2="358" y2="324" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+  <circle cx="360" cy="324" r="3.5" fill="#1B4F8A"/>
+
+  <!-- IT: Biagi Law 2003 -->
+  <rect x="380" y="300" width="272" height="48" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="516" y="319" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#712B13">Biagi Law (2003)</text>
+  <text x="516" y="337" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#993C1D">New work contracts; limited uptake by small firms</text>
+  <circle cx="360" cy="324" r="3.5" fill="#C0392B"/>
+  <line x1="362" y1="324" x2="378" y2="324" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+
+  <!-- DK: Welfare agreement 2006 -->
+  <rect x="68" y="366" width="272" height="48" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="204" y="385" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#0C447C">Welfare agreement (2006)</text>
+  <text x="204" y="403" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#185FA5">Extended active labour market policies</text>
+  <line x1="340" y1="390" x2="358" y2="390" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+  <circle cx="360" cy="390" r="3.5" fill="#1B4F8A"/>
+
+  <!-- IT: Industria 2015 plan 2006 -->
+  <rect x="380" y="366" width="272" height="48" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="516" y="385" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#712B13">Industria 2015 plan (2006)</text>
+  <text x="516" y="403" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#993C1D">ICT &amp; innovation — poorly executed</text>
+  <circle cx="360" cy="390" r="3.5" fill="#C0392B"/>
+  <line x1="362" y1="390" x2="378" y2="390" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       CRISIS  2009–2013
+  ═══════════════════════════════════════════════════ -->
+
+  <!-- External shock: Global financial crisis -->
+  <rect x="290" y="490" width="140" height="22" rx="4" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5" stroke-dasharray="3 2"/>
+  <text x="360" y="501" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#5F5E5A">Global financial crisis</text>
+
+  <!-- DK: Flexicurity cushions crisis 2009 -->
+  <rect x="68" y="526" width="272" height="56" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="204" y="545" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#0C447C">Flexicurity cushions crisis (2009)</text>
+  <text x="204" y="562" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#185FA5">Automatic stabilisers &amp; ALMP</text>
+  <text x="204" y="576" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#185FA5">absorb unemployment shock</text>
+  <line x1="340" y1="554" x2="358" y2="554" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+  <circle cx="360" cy="554" r="3.5" fill="#1B4F8A"/>
+
+  <!-- IT: Fornero Reform 2011 -->
+  <rect x="380" y="526" width="272" height="48" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="516" y="545" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#712B13">Fornero Reform (2011)</text>
+  <text x="516" y="563" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#993C1D">Pension &amp; labour reform under austerity</text>
+  <circle cx="360" cy="550" r="3.5" fill="#C0392B"/>
+  <line x1="362" y1="550" x2="378" y2="550" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+
+  <!-- IT: Spending cuts 2012 -->
+  <rect x="380" y="590" width="272" height="42" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="516" y="608" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#712B13">Spending cuts (2012)</text>
+  <text x="516" y="624" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#993C1D">R&amp;D &amp; ICT public investment frozen</text>
+  <circle cx="360" cy="611" r="3.5" fill="#C0392B"/>
+  <line x1="362" y1="611" x2="378" y2="611" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       RECOVERY  2014–2019
+  ═══════════════════════════════════════════════════ -->
+
+  <!-- DK: Digital Growth Strategy 2018 -->
+  <rect x="68" y="676" width="272" height="48" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="204" y="695" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#0C447C">Digital Growth Strategy (2018)</text>
+  <text x="204" y="713" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#185FA5">AI, data &amp; platform economy roadmap</text>
+  <line x1="340" y1="700" x2="358" y2="700" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+  <circle cx="360" cy="700" r="3.5" fill="#1B4F8A"/>
+
+  <!-- IT: Jobs Act 2014 -->
+  <rect x="380" y="676" width="272" height="48" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="516" y="695" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#712B13">Jobs Act (2014)</text>
+  <text x="516" y="713" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#993C1D">Reduced dismissal protection; belated flex</text>
+  <circle cx="360" cy="700" r="3.5" fill="#C0392B"/>
+  <line x1="362" y1="700" x2="378" y2="700" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+
+  <!-- DK: Disruption Council 2017 -->
+  <rect x="68" y="742" width="272" height="48" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="204" y="761" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#0C447C">Disruption Council (2017)</text>
+  <text x="204" y="779" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#185FA5">Tripartite body on digital future of work</text>
+  <line x1="340" y1="766" x2="358" y2="766" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+  <circle cx="360" cy="766" r="3.5" fill="#1B4F8A"/>
+
+  <!-- IT: Piano Industria 4.0 2016 -->
+  <rect x="380" y="742" width="272" height="48" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="516" y="761" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#712B13">Piano Industria 4.0 (2016)</text>
+  <text x="516" y="779" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#993C1D">Tax incentives for digital investment</text>
+  <circle cx="360" cy="766" r="3.5" fill="#C0392B"/>
+  <line x1="362" y1="766" x2="378" y2="766" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+
+  <!-- DK: GDPR 2018 -->
+  <rect x="68" y="808" width="272" height="48" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="204" y="827" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#0C447C">GDPR implementation (2018)</text>
+  <text x="204" y="845" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#185FA5">Strong data governance capability</text>
+  <line x1="340" y1="832" x2="358" y2="832" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+  <circle cx="360" cy="832" r="3.5" fill="#1B4F8A"/>
+
+  <!-- IT: GDPR 2018 -->
+  <rect x="380" y="808" width="272" height="48" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="516" y="827" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#712B13">GDPR implementation (2018)</text>
+  <text x="516" y="845" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#993C1D">Compliance burden heavier for small firms</text>
+  <circle cx="360" cy="832" r="3.5" fill="#C0392B"/>
+  <line x1="362" y1="832" x2="378" y2="832" stroke="rgba(31,30,29,0.25)" stroke-width="0.5"/>
+
+
+  <!-- ── Legend ── -->
+  <rect x="68" y="900" width="110" height="22" rx="4" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="123" y="911" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#185FA5">Denmark policy</text>
+
+  <rect x="192" y="900" width="90" height="22" rx="4" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="237" y="911" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#993C1D">Italy policy</text>
+
+  <rect x="296" y="900" width="106" height="22" rx="4" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5" stroke-dasharray="4 2"/>
+  <text x="349" y="911" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#5F5E5A">External shock</text>
+
+</svg>
